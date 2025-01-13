@@ -1,0 +1,37 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+
+# Go build artifacts
+*.o
+*.a
+*.out
+
+# Build and vendor directories
+/build/
+/vendor/
+
+# Dependency directories (Go Modules)
+go.sum
+go.mod~
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+*.DS_Store
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Coverage reports
+coverage.out
+
+# Specific to Gin debug files
+debug/
