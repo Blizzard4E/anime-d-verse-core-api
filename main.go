@@ -26,7 +26,6 @@ func main() {
 	// Create a Gin router instance
 	router := gin.Default()
 
-	// Define GET route for anime
 	router.GET("/anime", func(c *gin.Context) {
 		body, statusCode, err := services.FetchDataFromMicroservice(animeService, "anime")
 		if err != nil {
@@ -35,6 +34,17 @@ func main() {
 		}
 		c.Data(statusCode, "application/json", body)
 	})
+
+    router.GET("/anime/:id", func(c *gin.Context) {
+		id := c.Param("id") // Get the 'id' parameter from the route 
+		body, statusCode, err := services.FetchDataFromMicroservice(animeService, "anime/"+id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.Data(statusCode, "application/json", body)
+    })
+
 
 	// Define POST route for anime
 	router.POST("/anime", func(c *gin.Context) {
