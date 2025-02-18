@@ -124,6 +124,15 @@ func main() {
 		}
 		c.Data(statusCode, "application/json", body)
     })
+    router.GET("/threads/:thread_id", func(c *gin.Context) {
+		id := c.Param("thread_id") // Get the 'id' parameter from the route 
+		body, statusCode, err := services.FetchDataFromMicroservice(forumService, "threads/"+id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.Data(statusCode, "application/json", body)
+    })
     router.GET("/threads/anime/:anime_id", func(c *gin.Context) {
 		id := c.Param("anime_id") // Get the 'id' parameter from the route 
 		body, statusCode, err := services.FetchDataFromMicroservice(forumService, "threads/anime/"+id)
