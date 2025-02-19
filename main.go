@@ -7,6 +7,7 @@ import (
 
 	"anime-d-verse/services"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -33,6 +34,14 @@ func main() {
 	}
 	// Create a Gin router instance
 	router := gin.Default()
+    // Configure CORS
+	router.Use(cors.New(cors.Config{
+		AllowAllOrigins:  true, // Allows all origins
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true, 
+	}))
 
     //! Anime Section
 	router.GET("/anime", func(c *gin.Context) {
