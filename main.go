@@ -114,6 +114,22 @@ func main() {
 		}
 		c.Data(statusCode, "application/json", body)
     })
+        // Define routes for serving images and videos
+    router.GET("/media/*filename", func(c *gin.Context) {
+        // Extract filename and build endpoint path
+        filename := strings.TrimPrefix(c.Param("filename"), "/")
+        endpoint := fmt.Sprintf("media/%s", filename)
+        
+        // Forward request to microservice
+        body, statusCode, contentType, err := services.GetFileFromMicroservice(newsService, endpoint)
+        if err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+            return
+        }
+        
+        // Return response from microservice
+        c.Data(statusCode, contentType, body)
+    })
 
     //! Forum Section
     router.GET("/threads", func(c *gin.Context) {
